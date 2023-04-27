@@ -1,4 +1,5 @@
+Correct ips are: 
 142.250.183.238
-1456.250.183.343
-544.454.543.232
 34.3.54.5
+216.58.196.164
+Incorrect ips which corrected are: 
