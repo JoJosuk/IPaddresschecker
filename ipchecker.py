@@ -36,6 +36,7 @@
 
 # %%
 import socket
+import tkinter as tk
 
 # %% [markdown]
 # #### Function to Check if IP Address is Valid
@@ -81,6 +82,35 @@ avoidstrings=['Correct ips are: \n','Incorrect ips are: \n','Incorrect ips which
 correctips=[]
 incorrectips=[]
 
+# %%
+iplist=[]
+
+# %%
+def submitvalues(event=None):
+    
+    iplist.append(entrystr.get())
+    entrystr.delete(0,tk.END)
+ 
+   
+
+# %%
+m=tk.Tk()
+
+m.title('IP Checker')
+m.geometry("800x100")
+
+entrystr= tk.Entry(m, width=100, borderwidth=5)
+entrystr.pack()
+ 
+stopper = tk.Button(m, text='Stop', width=25, command=m.destroy)
+submit=tk.Button(m,text='Submit',width=25,command=submitvalues)
+m.bind('<Return>',submitvalues)
+submit.pack()
+stopper.pack()
+m.mainloop()
+print(iplist)
+
+
 # %% [markdown]
 # #### Reading input file and processing the IPs
 # 
@@ -88,8 +118,8 @@ incorrectips=[]
 # 
 
 # %%
-f=open('ipaddress.txt','r')
-for i in f.readlines():
+# f=open('ipaddress.txt','r')
+for i in iplist:
     if i in avoidstrings:
         continue
     if isvalid(i.strip()):
@@ -118,15 +148,15 @@ for i in correctips:
 # 
 
 # %%
-f.write('Incorrect ips which corrected are: \n')
-for i in incorrectips:
-    print('Enter the website for this ip you entered: ',i)
-    print('eg: www.google.com')
-    a=input()
-    try:     
-        correctedip=socket.gethostbyname(a)
-    except:
-        continue
-    f.write(correctedip+"\n")
+# f.write('Incorrect ips which corrected are: \n')
+# for i in incorrectips:
+#     print('Enter the website for this ip you entered: ',i)
+#     print('eg: www.google.com')
+#     a=input()
+#     try:     
+#         correctedip=socket.gethostbyname(a)
+#     except:
+#         continue
+#     f.write(correctedip+"\n")
 
 
