@@ -1,5 +1,7 @@
 import tkinter as tk
+import customtkinter as ctk
 import socket
+from tkinter import ttk
 
 iplist1=[]
 iplist2=[]
@@ -14,44 +16,44 @@ def submitvalues(Event=None):
     for ip in iplist1:
         try:
             socket.inet_aton(ip)
-            label3.config(text="IP1 exists", bg="green")
+            label3.configure(text="IP1 exists\n\n\n", fg_color="green")
         except socket.error:
-            label3.config(text="IP1 does not exist,clearing latest", bg="red")
+            label3.configure(text="IP1 does not exist,clearing latest", fg_color="red")
             iplist1.clear()
             break;
     for ip in iplist2:
         try:
             socket.inet_aton(ip)
-            label4.config(text="IP2 exists", bg="green")
+            label4.configure(text="IP2 exists", bg="green")
         except socket.error:
-            label4.config(text="IP2 does not exists,clearing latest ", bg="red")
+            label4.configure(text="IP2 does not exists,clearing latest ", bg="red")
             iplist2.clear()
             break;
     print(iplist1,iplist2)        
     m.after(10000, submitvalues)
-   
-m=tk.Tk()
+
+ctk.set_appearance_mode("system")
+ctk.set_default_color_theme("blue")   
+m=ctk.CTk()
 
 m.title('IP Checker')
-m.geometry("800x800")
+m.geometry("800x500")
 
-spacer1 = tk.Label(m, text="")
-spacer1.grid(row=4, column=0)
-spacer1.pack()
-label = tk.Label(m, text="place1", width=20, bg="white")
-label.pack()
-entrystr= tk.Entry(m, width=100, borderwidth=5)
+
+label = ctk.CTkLabel(master=m, text="Place 1")
+label.pack(padx=20,pady=20)
+entrystr= ctk.CTkEntry(master=m, width=100)
 entrystr.pack()
-label2= tk.Label(m, text="place2", width=20, bg="white")
+label2= ctk.CTkLabel(master=m, text="place2", width=20)
 label2.pack()
-entrystr2= tk.Entry(m, width=100, borderwidth=5)
+entrystr2= ctk.CTkEntry(master=m, width=100)
 entrystr2.pack()
-label3 = tk.Label(m, text="", width=30,height=10, bg="white")
+label3 = ctk.CTkLabel(master=m, text="", width=30,height=10 )
 label3.pack()
-label4 = tk.Label(m, text="", width=30,height=10, bg="white")
+label4 = ctk.CTkLabel(master=m, text="", width=30,height=10)
 label4.pack()
-stopper = tk.Button(m, text='Stop', width=25, command=m.destroy)
-submit=tk.Button(m,text='Submit',width=25,command=submitvalues)
+stopper = ctk.CTkButton(master=m, text='Stop', width=25, command=m.destroy)
+submit=ctk.CTkButton(master=m,text='Submit',width=25,command=submitvalues)
 m.bind('<Return>',submitvalues)
 submit.pack()
 stopper.pack()
