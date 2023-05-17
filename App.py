@@ -9,6 +9,7 @@ iplist2=[]
 
 def check_ip_accessibility(ip_address):
     try:
+        socket.inet_aton(ip_address)
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.settimeout(0.1)  # Set a timeout value in seconds
 
@@ -28,62 +29,114 @@ def append_input(event=None):
     input2 = entry2.get()
     if input1 != '':
         iplist1.append(input1)
-        textbox.insert(tk.END, input1+'\t-PLACE 1\n')
+        textbox1.insert(tk.END, input1+'\n')
     if input2 != '':
         iplist2.append(input2)
-        textbox.insert(tk.END, input2+'\t-PLACE 2\n')
+        textbox2.insert(tk.END, input2+'\n')
     entry1.delete(0, 'end')
     entry2.delete(0, 'end')
 def outputshow():
+    global new_window
     
     new_window = ctk.CTkToplevel()
-    new_window.geometry("400x400")
+    new_window.geometry("1000x400")
     new_window.title('IP values')
-    value_string=''
-    value_string=value_string+'IPs in place 1 are:\n\n\n'
-    for i in (iplist1):
-        if check_ip_accessibility(i):
-            value_string=value_string+i+' is accessible\n'
+    def outputiterate():
+        flag1=True
+        flag2=True
+        print('in outputiterate')
+        value_string1='IPs in place 1 are:\n\n\n'
+        value_string2='IPs in place 2 are:\n\n\n'
+        for i in (iplist1):
+            if check_ip_accessibility(i):
+                value_string1=value_string1+i+' is accessible\n'
+            else:
+                value_string1=value_string1+i+' is not accessible\n'
+                flag1=False
+        for i in (iplist2):
+            if check_ip_accessibility(i):
+                value_string2=value_string2+i+' is accessible\n'
+            else:
+                value_string2=value_string2+i+' is not accessible\n'
+                flag2=False
+                
+        output_frame=ctk.CTkFrame(new_window)
+        output_frame.pack(padx=50, pady=50)
+        labeled1 = ctk.CTkTextbox(output_frame,width=350,font=('Arial', 15))
+        labeled1.configure(state='normal')
+        labeled1.insert(tk.END, value_string1)
+        labeled2 = ctk.CTkTextbox(output_frame,width=350,font=('Arial', 15))
+        labeled2.configure(state='normal')
+        labeled2.insert(tk.END, value_string2)
+        labeled1.configure(state='disabled')
+        labeled2.configure(state='disabled')
+        if flag1:
+            labeled1.configure(fg_color='green')
         else:
-            value_string=value_string+i+' is not accessible\n'
-    value_string=value_string+'\n\n\nIPs in place 2 are:\n\n\n'
-    for i in (iplist2):
-        if check_ip_accessibility(i):
-            value_string=value_string+i+' is accessible\n'
+            labeled1.configure(fg_color='red')
+        if flag2:
+            labeled2.configure(fg_color='green')
         else:
-            value_string=value_string+i+' is not accessible\n'
-    labeled = ctk.CTkTextbox(new_window,width=350)
-    labeled.insert(tk.END, value_string)
-    labeled.pack()
-
+            labeled2.configure(fg_color='red')
+        labeled2.grid(row=0, column=1, padx=30, pady=30)
+        labeled1.grid(row=0, column=0, padx=30, pady=30)
+        new_window.after(1000, outputiterate)
+    outputiterate()
+    
+def clearlist():
+    iplist1.clear()
+    iplist2.clear()
+    textbox1.delete('3.0', tk.END)
+    textbox2.delete('3.0', tk.END)
 
 
 def button1_clicked():
     # Remove all widgets from the main window
     for widget in m.winfo_children():
         widget.destroy()
-    global textbox
-    textbox=ctk.CTkTextbox(m,width=350)
-    textbox.pack()
+    tb_frame=ctk.CTkFrame(m)
+    tb_frame.pack()
+    global textbox1
+    textbox1=ctk.CTkTextbox(tb_frame,width=350,font=('Arial', 15))
+    textbox1.grid(row=0, column=0, padx=10, pady=10)
+    textbox1.insert(tk.END, 'IPs in place 1 are:\n\n\n')
+    global textbox2
+    textbox2=ctk.CTkTextbox(tb_frame,width=350,font=('Arial', 15))  
+    textbox2.grid(row=0, column=1, padx=10, pady=10)
+    textbox2.insert(tk.END, 'IPs in place 2 are:\n\n\n')
     # Create a label saying "hi"
-    label1 = ctk.CTkLabel(m, text="Place 1")
-    label1.pack()
+    frame_place1=ctk.CTkFrame(m)
+    frame_place1.pack(padx=50, pady=50)
+    label1 = ctk.CTkLabel(frame_place1, text="Place 1")
+    label1.grid(row=0, column=0, padx=10, pady=10)
     global entry1
-    entry1 = ctk.CTkEntry(m)
-    entry1.pack()
+    entry1 = ctk.CTkEntry(frame_place1,width=350)
+    entry1.grid(row=0, column=1, padx=10, pady=10)
     entry1.bind('<Return>', append_input)
     
-    label2 = ctk.CTkLabel(m, text="Place 2")
-    label2.pack()
+
+    label2 = ctk.CTkLabel(frame_place1, text="Place 2")
+    label2.grid(row=1, column=0, padx=10, pady=10)
+    
+    
     global entry2
-    entry2 = ctk.CTkEntry(m)
-    entry2.pack()
+    entry2 = ctk.CTkEntry(frame_place1,width=350)
+    entry2.grid(row=1, column=1, padx=10, pady=10)
     entry2.bind('<Return>', append_input)
 
+    
+    frame_buttons=ctk.CTkFrame(m)
+    frame_buttons.pack(padx=20, pady=20)
     # Create an "Output" button
-    output_button = ctk.CTkButton(m, text="Output",command=outputshow)
-    output_button.pack()
+    output_button = ctk.CTkButton(frame_buttons, text="Output",command=outputshow)
+    output_button.grid(row=0, column=0, padx=10, pady=10)
 
+    #append the input to the list by append button
+    append_button = ctk.CTkButton(frame_buttons, text="Append",command=append_input)
+    append_button.grid(row=0, column=1, padx=10, pady=10)
+    
+    clear_button = ctk.CTkButton(frame_buttons, text="Clear",command=clearlist)
+    clear_button.grid(row=0, column=2, padx=10, pady=10)
     # Create a label to display the output
     
 
