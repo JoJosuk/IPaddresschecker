@@ -8,6 +8,7 @@ iplist2=[]
 port1list=[]
 port2list=[]
 
+
 def check_ip_accessibility(ip_address,port):
     try:
         port=int(port)
@@ -49,14 +50,18 @@ def append_input(event=None):
     entry2.delete(0, 'end')
     entry3.delete(0, 'end')
     entry4.delete(0, 'end')
+
 def outputshow():
     global new_window
     
     new_window = ctk.CTkToplevel()
     new_window.geometry("1000x400")
     new_window.title('IP values')
-    closebutton = ctk.CTkButton(new_window, text="Close", command=new_window.destroy)
+    
+    
     def outputiterate():
+        for widget in new_window.winfo_children():
+            widget.destroy()
         flag1=True
         flag2=True
         print('in outputiterate')
@@ -77,6 +82,7 @@ def outputshow():
                 
         output_frame=ctk.CTkFrame(new_window)
         output_frame.pack(padx=50, pady=50)
+        
         output_frame.grab_set()
         labeled1 = ctk.CTkTextbox(output_frame,width=400,font=('Arial', 15))
         labeled1.configure(state='normal')
@@ -96,9 +102,12 @@ def outputshow():
             labeled2.configure(fg_color='red')
         labeled2.grid(row=0, column=1, padx=30, pady=30)
         labeled1.grid(row=0, column=0, padx=30, pady=30)
-        closebutton.pack(padx=30, pady=30)
         
-        new_window.after(1000, outputiterate)
+
+        new_window.after(10000, outputiterate)
+        
+            
+        
 
     outputiterate()
     
