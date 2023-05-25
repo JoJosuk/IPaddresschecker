@@ -1,8 +1,0 @@
-[2023-05-25 07:58:00] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-25 07:58:00] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-25 07:58:00] IP 103.243.32.90 is accessible on port 80 (sirubaya)
-[2023-05-25 07:58:00] IP 103.243.32.90 is accessible on port 80 (sirubaya)
-[2023-05-25 07:58:10] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-25 07:58:10] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-25 07:58:10] IP 103.243.32.90 is accessible on port 80 (sirubaya)
-[2023-05-25 07:58:10] IP 103.243.32.90 is accessible on port 80 (sirubaya)

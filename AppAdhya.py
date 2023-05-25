@@ -31,12 +31,14 @@ def set_image_background(window, image_path):
     
 def entry_changed(*args):
     input1 = entry1.get()
-    print(input1)
-    try:
-        socket.inet_aton(input1)
-        entry1.configure(fg_color='green')
-    except socket.error:
-        entry1.configure(fg_color='red')
+    if input1 == '' or len(input1)<7:
+        entry1.configure(fg_color="gray")
+    else:
+        try:
+            socket.inet_aton(input1)
+            entry1.configure(fg_color='green')
+        except socket.error:
+            entry1.configure(fg_color='red')
 
 def check_ip_accessibility(ip_address,port):
     try:
