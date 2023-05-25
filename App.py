@@ -158,6 +158,7 @@ def button1_clicked():
     entry2 = ctk.CTkEntry(frame_place1,width=300)
     entry2.grid(row=1, column=1, padx=10, pady=10)
     entry2.bind('<Return>', append_input)
+
     label3=ctk.CTkLabel(frame_place1, text="Enter the port number:")
     label3.grid(row=1, column=2, padx=10, pady=10)
     entry4 = ctk.CTkEntry(frame_place1,width=300)
