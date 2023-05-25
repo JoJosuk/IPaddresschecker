@@ -19,11 +19,10 @@ def log_output(output):
 
 def set_image_background(window, image_path):
     # Load the image and create a PhotoImage object
-    image = Image.open(image_path)
-    photo = ImageTk.PhotoImage(image)
+    bg_image =ctk.CTkImage(Image.open(image_path),size=(1000,400))
 
     # Create a Label widget with the image as its background
-    background_label = tk.Label(window, image=photo)
+    background_label = ctk.CTkLabel(window, image=bg_image,text='')
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
     # Set the label as the lowest layer in the window
@@ -31,7 +30,7 @@ def set_image_background(window, image_path):
     
 def entry_changed(*args):
     input1 = entry1.get()
-    if input1 == '' or len(input1)<7:
+    if input1 == '':
         entry1.configure(fg_color="gray")
     else:
         try:
@@ -83,9 +82,12 @@ def outputshow():
     new_window = ctk.CTkToplevel()
     new_window.geometry("1000x400")
     new_window.title('IP values')
+    set_image_background(new_window, "welcome.jpg")
     
     def outputiterate():
         for widget in new_window.winfo_children():
+            if str(widget)=='.!ctktoplevel.!ctklabel':
+                continue
             widget.destroy()
         flag1 = True
         flag2 = True
@@ -256,12 +258,12 @@ with open("log.txt", "w") as log_file:
     pass
 
 
-# set_image_background(m, 'welcome.jpg')
+set_image_background(m, 'welcome.jpg')
 
 # spacermain=ctk.CTkLabel(m, text="", padx=100, pady=100)
 # spacermain.pack()
 
-spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50))
+spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50),fg_color='transparent')
 spacer.pack(fill='both', expand=True, anchor='center')
 
 
