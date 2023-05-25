@@ -19,11 +19,12 @@ def log_output(output):
 
 def set_image_background(window, image_path):
     # Load the image and create a PhotoImage object
-    bg_image =ctk.CTkImage(Image.open(image_path),size=(1000,400))
+    bg_image =ctk.CTkImage(Image.open(image_path),size=(1200,1080))
 
     # Create a Label widget with the image as its background
     background_label = ctk.CTkLabel(window, image=bg_image,text='')
     background_label.place(x=0, y=0, relwidth=1, relheight=1)
+    
 
     # Set the label as the lowest layer in the window
     background_label.lower()
@@ -148,7 +149,9 @@ def clearlist():
 def go_back():
         for widget in m.winfo_children():
             widget.destroy()
-        spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50))
+        bg_image =ctk.CTkImage(Image.open('welcome.jpg'),size=(1000,250))
+
+        spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50), image=bg_image)
         spacer.pack(fill='both', expand=True, anchor='center')
 
 
@@ -186,7 +189,7 @@ def button1_clicked():
         widget.destroy()
     tb_frame=ctk.CTkFrame(m)
     tb_frame.pack()
-    
+    set_image_background(m, "welcome.jpg")
     global textbox1
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))
     textbox1.grid(row=0, column=0, padx=10, pady=10)
@@ -258,12 +261,15 @@ with open("log.txt", "w") as log_file:
     pass
 
 
-set_image_background(m, 'welcome.jpg')
 
 # spacermain=ctk.CTkLabel(m, text="", padx=100, pady=100)
 # spacermain.pack()
+width=m.winfo_width()
+height=m.winfo_height()
+print(width,height)
+bg_image =ctk.CTkImage(Image.open('welcome.jpg'),size=(1000,250))
 
-spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50),fg_color='transparent')
+spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),image=bg_image)
 spacer.pack(fill='both', expand=True, anchor='center')
 
 
