@@ -2,14 +2,25 @@ import tkinter as tk
 from tkinter import messagebox
 import customtkinter as ctk
 import socket
-from PIL import Image
+from PIL import Image, ImageTk
 
 jakartaiplist=[]
 jakartaportlist=[]
-sirabayaiplist=[]
-sirabayaportlist=[]
+sirubayaiplist=[]
+sirubayaportlist=[]
 
+def set_image_background(window, image_path):
+    # Load the image and create a PhotoImage object
+    image = Image.open(image_path)
+    photo = ImageTk.PhotoImage(image)
 
+    # Create a Label widget with the image as its background
+    background_label = tk.Label(window, image=photo)
+    background_label.place(x=0, y=0, relwidth=1, relheight=1)
+
+    # Set the label as the lowest layer in the window
+    background_label.lower()
+    
 def entry_changed(*args):
     input1 = entry1.get()
     print(input1)
@@ -44,11 +55,11 @@ def add_input(event=None):
         port='80'
     if input != '':
         if placestr.get()=="jakarta":
-            sirabayaiplist.append(input)
+            sirubayaiplist.append(input)
             textbox2.insert(tk.END, input+' Port:'+port+'\n')        
-            sirabayaportlist.append(port)
+            sirubayaportlist.append(port)
             
-        elif placestr.get()=="sirabaya":
+        elif placestr.get()=="sirubaya":
             jakartaiplist.append(input)
             textbox1.insert(tk.END, input+' Port:'+port+'\n')        
             jakartaportlist.append(port)
@@ -72,8 +83,8 @@ def outputshow():
         flag2=True
         print('in outputiterate')
         value_string1='IPs are (Jakarta):\n\n\n'
-        value_string2='IPs are (Sirabaya):\n\n\n'
-        print(jakartaiplist,jakartaportlist,sirabayaiplist,sirabayaportlist)
+        value_string2='IPs are (sirubaya):\n\n\n'
+        print(jakartaiplist,jakartaportlist,sirubayaiplist,sirubayaportlist)
         for no,i in enumerate(jakartaiplist):
             
             if check_ip_accessibility(i,jakartaportlist[no]):
@@ -81,11 +92,11 @@ def outputshow():
             else:
                 value_string1=value_string1+i+' is not accessible on port :'+jakartaportlist[no]+'\n'
                 flag1=False
-        for no,i in enumerate(sirabayaiplist):
-            if check_ip_accessibility(i,sirabayaportlist[no]):
-                value_string2=value_string2+i+' is accessible on port :'+sirabayaportlist[no]+'\n'
+        for no,i in enumerate(sirubayaiplist):
+            if check_ip_accessibility(i,sirubayaportlist[no]):
+                value_string2=value_string2+i+' is accessible on port :'+sirubayaportlist[no]+'\n'
             else:
-                value_string2=value_string2+i+' is not accessible on port :'+sirabayaportlist[no]+'\n'
+                value_string2=value_string2+i+' is not accessible on port :'+sirubayaportlist[no]+'\n'
                 flag2=False
         output_frame=ctk.CTkFrame(new_window)
         output_frame.pack(padx=50, pady=50)
@@ -117,7 +128,7 @@ def outputshow():
     
 def clearlist():
     jakartaiplist.clear()
-    sirabayaiplist.clear()
+    sirubayaiplist.clear()
     textbox1.delete('3.0', tk.END)
 
 
@@ -125,12 +136,20 @@ def go_back():
         for widget in m.winfo_children():
             widget.destroy()
         spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50))
-        spacer.grid(sticky="nsew")
-        spacer.pack()
+        spacer.pack(fill='both', expand=True, anchor='center')
 
 
-        buttonframe= ctk.CTkFrame(m)
-        buttonframe.pack()
+        # spacer.grid(sticky="nsew")
+
+
+        buttonframe2= ctk.CTkFrame(m)
+        buttonframe2.pack(fill='both', expand=True, anchor='center')
+
+        buttonframe= ctk.CTkFrame(buttonframe2)
+        buttonframe.pack(padx=10, pady=20)
+
+
+        
 
         button1 = ctk.CTkButton(buttonframe, text="Monitor", command=button1_clicked)
         button1.grid(row=1, column=0, padx=10, pady=10)
@@ -143,7 +162,7 @@ def go_back():
 
 def place():
     if placestr.get()=='jakarta':
-        placestr.set('sirabaya')
+        placestr.set('sirubaya')
     else:
         placestr.set('jakarta')
 
@@ -162,7 +181,7 @@ def button1_clicked():
     global textbox2
     textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
     textbox2.grid(row=0, column=1, padx=10, pady=10)
-    textbox2.insert(tk.END, 'IPs in Sirabaya are:\n\n\n')
+    textbox2.insert(tk.END, 'IPs in sirubaya are:\n\n\n')
     
     frame_place1=ctk.CTkFrame(m)
     frame_place1.pack(padx=50, pady=50)
@@ -206,7 +225,7 @@ def button1_clicked():
     # Create a label to display the output
     global placestr
     placestr=tk.StringVar()
-    placestr.set('sirabaya')
+    placestr.set('sirubaya')
     
     place_button=ctk.CTkButton(frame_buttons, textvariable=placestr, command=place)
     place_button.grid(row=0, column=4, padx=10, pady=10)
@@ -223,16 +242,23 @@ m=ctk.CTk()
 m.title('NMS')
 m.geometry("1000x500")
 
-spacermain=ctk.CTkLabel(m, text="", padx=100, pady=100)
-spacermain.pack()
+# set_image_background(m, 'welcome.jpg')
+
+# spacermain=ctk.CTkLabel(m, text="", padx=100, pady=100)
+# spacermain.pack()
 
 spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50))
+spacer.pack(fill='both', expand=True, anchor='center')
+
+
 # spacer.grid(sticky="nsew")
-spacer.pack()
 
 
-buttonframe= ctk.CTkFrame(m)
-buttonframe.pack()
+buttonframe2= ctk.CTkFrame(m)
+buttonframe2.pack(fill='both', expand=True, anchor='center')
+
+buttonframe= ctk.CTkFrame(buttonframe2)
+buttonframe.pack(padx=10, pady=20)
 
 button1 = ctk.CTkButton(buttonframe, text="Monitor", command=button1_clicked)
 button1.grid(row=1, column=0, padx=10, pady=10)
