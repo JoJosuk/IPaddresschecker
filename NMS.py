@@ -32,7 +32,7 @@ def set_image_background(window, image_path):
 def entry_changed(*args):
     input1 = entry1.get()
     if input1 == '':
-        entry1.configure(fg_color="black")
+        entry1.configure(fg_color="gray")
     else:
         try:
             socket.inet_aton(input1)
@@ -81,9 +81,9 @@ def outputshow():
     global new_window
     
     new_window = ctk.CTkToplevel()
-    new_window.geometry("1000x500")
+    new_window.geometry("1000x400")
     new_window.title('IP values')
-    set_image_background(new_window, "nms.webp")
+    set_image_background(new_window, "welcome.jpg")
     
     def outputiterate():
         for widget in new_window.winfo_children():
@@ -92,8 +92,8 @@ def outputshow():
             widget.destroy()
         flag1 = True
         flag2 = True
-        value_string1 = 'Jakarta :\n\n\n'
-        value_string2 = 'Sirubaya :\n\n\n'
+        value_string1 = 'IPs are (Jakarta):\n\n\n'
+        value_string2 = 'IPs are (sirubaya):\n\n\n'
         for no, i in enumerate(jakartaiplist):
 
             if check_ip_accessibility(i, jakartaportlist[no]):
@@ -106,11 +106,11 @@ def outputshow():
         for no, i in enumerate(sirubayaiplist):
             if check_ip_accessibility(i, sirubayaportlist[no]):
                 value_string2 = value_string2 + i + ' is accessible on port :' + sirubayaportlist[no] + '\n'
-                log_output(f"IP {i} is accessible on port {sirubayaportlist[no]} (Sirubaya)")
+                log_output(f"IP {i} is accessible on port {sirubayaportlist[no]} (sirubaya)")
             else:
                 value_string2 = value_string2 + i + ' is not accessible on port :' + sirubayaportlist[no] + '\n'
                 flag2 = False
-                log_output(f"IP {i} is not accessible on port {sirubayaportlist[no]} (Sirubaya)")
+                log_output(f"IP {i} is not accessible on port {sirubayaportlist[no]} (sirubaya)")
 
         output_frame = ctk.CTkFrame(new_window)
         output_frame.pack(padx=50, pady=50)
@@ -149,7 +149,7 @@ def clearlist():
 def go_back():
         for widget in m.winfo_children():
             widget.destroy()
-        bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,250))
+        bg_image =ctk.CTkImage(Image.open('welcome.jpg'),size=(1000,250))
 
         spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50), image=bg_image)
         spacer.pack(fill='both', expand=True, anchor='center')
@@ -177,10 +177,10 @@ def go_back():
         button3.grid(row=1, column=2, padx=10, pady=10)
 
 def place():
-    if placestr.get()=='Jakarta':
-        placestr.set('Sirubaya')
+    if placestr.get()=='jakarta':
+        placestr.set('sirubaya')
     else:
-        placestr.set('Jakarta')
+        placestr.set('jakarta')
 
 
 def button1_clicked():
@@ -189,15 +189,15 @@ def button1_clicked():
         widget.destroy()
     tb_frame=ctk.CTkFrame(m)
     tb_frame.pack()
-    set_image_background(m, "nms.webp")
+    set_image_background(m, "welcome.jpg")
     global textbox1
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))
     textbox1.grid(row=0, column=0, padx=10, pady=10)
-    textbox1.insert(tk.END, 'IP & Port in Jakarta :\n\n\n')
+    textbox1.insert(tk.END, 'IPs in Jakarta are:\n\n\n')
     global textbox2
     textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
     textbox2.grid(row=0, column=1, padx=10, pady=10)
-    textbox2.insert(tk.END, 'IP & Port in Sirubaya :\n\n\n')
+    textbox2.insert(tk.END, 'IPs in sirubaya are:\n\n\n')
     
     frame_place1=ctk.CTkFrame(m)
     frame_place1.pack(padx=50, pady=50)
@@ -241,7 +241,7 @@ def button1_clicked():
     # Create a label to display the output
     global placestr
     placestr=tk.StringVar()
-    placestr.set('Sirubaya')
+    placestr.set('sirubaya')
     
     place_button=ctk.CTkButton(frame_buttons, textvariable=placestr, command=place)
     place_button.grid(row=0, column=4, padx=10, pady=10)
@@ -251,7 +251,7 @@ def button3_clicked():
     messagebox.showinfo("About", "The project Network Monitoring System is all about the monitoring the network accessibility in Indonesia mainly in Jakarta and Sirubaya. This python code check the validity and accessibility of an ip address along with its port number and reminds the user if any issues pops up. ")
     m.messagebox("100x100")
 
-ctk.set_appearance_mode("system ")
+ctk.set_appearance_mode("system")
 ctk.set_default_color_theme("green")   
 m=ctk.CTk()
 
@@ -267,7 +267,7 @@ with open("log.txt", "w") as log_file:
 width=m.winfo_width()
 height=m.winfo_height()
 print(width,height)
-bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,375))
+bg_image =ctk.CTkImage(Image.open('welcome.jpg'),size=(1000,250))
 
 spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),image=bg_image)
 spacer.pack(fill='both', expand=True, anchor='center')
@@ -277,7 +277,7 @@ spacer.pack(fill='both', expand=True, anchor='center')
 
 
 buttonframe2= ctk.CTkFrame(m)
-buttonframe2.pack(expand=True, anchor='center')
+buttonframe2.pack(fill='both', expand=True, anchor='center')
 
 buttonframe= ctk.CTkFrame(buttonframe2)
 buttonframe.pack(padx=10, pady=20)
