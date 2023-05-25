@@ -2,12 +2,20 @@ import tkinter as tk
 from tkinter import messagebox
 import customtkinter as ctk
 import socket
+import datetime
 from PIL import Image, ImageTk
 
 jakartaiplist=[]
 jakartaportlist=[]
 sirubayaiplist=[]
 sirubayaportlist=[]
+
+def log_output(output):
+    timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    log_entry = f"[{timestamp}] {output}\n"
+    with open("log.txt", "a") as log_file:
+        log_file.write(log_entry)
+
 
 def set_image_background(window, image_path):
     # Load the image and create a PhotoImage object
