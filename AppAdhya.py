@@ -4,9 +4,10 @@ import customtkinter as ctk
 import socket
 from PIL import Image
 
-iplist=[]
-portlist=[]
-
+jakartaiplist=[]
+jakartaportlist=[]
+sirabayaiplist=[]
+sirabayaportlist=[]
 
 def check_ip_accessibility(ip_address,port):
     try:
@@ -32,9 +33,16 @@ def add_input(event=None):
     if port=='':
         port='80'
     if input != '':
-        iplist.add(input)
-        textbox1.insert(tk.END, input+' Port:'+port+'\n')        
-        portlist.add(port)
+        if placestr.get()=="jakarta":
+            sirabayaiplist.append(input)
+            textbox1.insert(tk.END, input+' Port:'+port+'\n')        
+            sirabayaportlist.append(port)
+            
+        elif placestr.get()=="sirabaya":
+            jakartaiplist.append(input)
+            textbox2.insert(tk.END, input+' Port:'+port+'\n')        
+            jakartaportlist.append(port)
+        
         
     entry1.delete(0, 'end')
     entry3.delete(0, 'end')
@@ -53,11 +61,11 @@ def outputshow():
         flag1=True
         print('in outputiterate')
         value_string1='IPs are:\n\n\n'
-        for no,i in enumerate(iplist):
-            if check_ip_accessibility(i,portlist[no]):
-                value_string1=value_string1+i+' is accessible on port :'+portlist[no]+'\n'
+        for no,i in enumerate(jakartaiplist):
+            if check_ip_accessibility(i,jakartaportlist[no]):
+                value_string1=value_string1+i+' is accessible on port :'+jakartaportlist[no]+'\n'
             else:
-                value_string1=value_string1+i+' is not accessible on port :'+portlist[no]+'\n'
+                value_string1=value_string1+i+' is not accessible on port :'+jakartaportlist[no]+'\n'
                 flag1=False
                 
         output_frame=ctk.CTkFrame(new_window)
@@ -80,7 +88,8 @@ def outputshow():
     outputiterate()
     
 def clearlist():
-    iplist.clear()
+    jakartaiplist.clear()
+    sirabayaiplist.clear()
     textbox1.delete('3.0', tk.END)
 
 
@@ -104,6 +113,11 @@ def go_back():
         button3 = ctk.CTkButton(buttonframe, text="About", command=button3_clicked)
         button3.grid(row=1, column=2, padx=10, pady=10)
 
+def place():
+    if placestr.get()=='jakarta':
+        placestr.set('sirabaya')
+    else:
+        placestr.set('jakarta')
 
 
 def button1_clicked():
@@ -112,11 +126,16 @@ def button1_clicked():
         widget.destroy()
     tb_frame=ctk.CTkFrame(m)
     tb_frame.pack()
+    
     global textbox1
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))
     textbox1.grid(row=0, column=0, padx=10, pady=10)
-    textbox1.insert(tk.END, 'IP & Port are :\n\n\n')
-    # Create a label saying "hi"
+    textbox1.insert(tk.END, 'IPs in place 1 are:\n\n\n')
+    global textbox2
+    textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
+    textbox2.grid(row=0, column=1, padx=10, pady=10)
+    textbox2.insert(tk.END, 'IPs in place 2 are:\n\n\n')
+    
     frame_place1=ctk.CTkFrame(m)
     frame_place1.pack(padx=50, pady=50)
     label1 = ctk.CTkLabel(frame_place1, text="Ip address : ")
@@ -151,6 +170,12 @@ def button1_clicked():
     back_button = ctk.CTkButton(frame_buttons, text="Back", command=go_back)
     back_button.grid(row=0, column=3, padx=10, pady=10)
     # Create a label to display the output
+    global placestr
+    placestr=tk.StringVar()
+    placestr.set('jakarta')
+    
+    place_button=ctk.CTkButton(frame_buttons, textvariable=placestr, command=place)
+    place_button.grid(row=0, column=4, padx=10, pady=10)
 
 
 def button3_clicked():
@@ -164,9 +189,11 @@ m=ctk.CTk()
 m.title('NMS')
 m.geometry("1000x500")
 
+spacermain=ctk.CTkLabel(m, text="", padx=100, pady=100)
+spacermain.pack()
 
 spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50))
-spacer.grid(sticky="nsew")
+# spacer.grid(sticky="nsew")
 spacer.pack()
 
 
