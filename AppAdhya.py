@@ -49,7 +49,6 @@ def check_ip_accessibility(ip_address,port):
 
         result = sock.connect_ex((ip_address, port))
         sock.close()
-        print(result)
         if result == 0:
             return True
         else:
@@ -90,10 +89,8 @@ def outputshow():
             widget.destroy()
         flag1 = True
         flag2 = True
-        print('in outputiterate')
         value_string1 = 'IPs are (Jakarta):\n\n\n'
         value_string2 = 'IPs are (sirubaya):\n\n\n'
-        print(jakartaiplist, jakartaportlist, sirubayaiplist, sirubayaportlist)
         for no, i in enumerate(jakartaiplist):
 
             if check_ip_accessibility(i, jakartaportlist[no]):
