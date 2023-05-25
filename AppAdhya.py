@@ -83,37 +83,41 @@ def outputshow():
     new_window.geometry("1000x400")
     new_window.title('IP values')
     
-    
     def outputiterate():
         for widget in new_window.winfo_children():
             widget.destroy()
-        flag1=True
-        flag2=True
+        flag1 = True
+        flag2 = True
         print('in outputiterate')
-        value_string1='IPs are (Jakarta):\n\n\n'
-        value_string2='IPs are (sirubaya):\n\n\n'
-        print(jakartaiplist,jakartaportlist,sirubayaiplist,sirubayaportlist)
-        for no,i in enumerate(jakartaiplist):
-            
-            if check_ip_accessibility(i,jakartaportlist[no]):
-                value_string1=value_string1+i+' is accessible on port :'+jakartaportlist[no]+'\n'
+        value_string1 = 'IPs are (Jakarta):\n\n\n'
+        value_string2 = 'IPs are (sirubaya):\n\n\n'
+        print(jakartaiplist, jakartaportlist, sirubayaiplist, sirubayaportlist)
+        for no, i in enumerate(jakartaiplist):
+
+            if check_ip_accessibility(i, jakartaportlist[no]):
+                value_string1 = value_string1 + i + ' is accessible on port :' + jakartaportlist[no] + '\n'
+                log_output(f"IP {i} is accessible on port {jakartaportlist[no]} (Jakarta)")
             else:
-                value_string1=value_string1+i+' is not accessible on port :'+jakartaportlist[no]+'\n'
-                flag1=False
-        for no,i in enumerate(sirubayaiplist):
-            if check_ip_accessibility(i,sirubayaportlist[no]):
-                value_string2=value_string2+i+' is accessible on port :'+sirubayaportlist[no]+'\n'
+                value_string1 = value_string1 + i + ' is not accessible on port :' + jakartaportlist[no] + '\n'
+                flag1 = False
+                log_output(f"IP {i} is not accessible on port {jakartaportlist[no]} (Jakarta)")
+        for no, i in enumerate(sirubayaiplist):
+            if check_ip_accessibility(i, sirubayaportlist[no]):
+                value_string2 = value_string2 + i + ' is accessible on port :' + sirubayaportlist[no] + '\n'
+                log_output(f"IP {i} is accessible on port {sirubayaportlist[no]} (sirubaya)")
             else:
-                value_string2=value_string2+i+' is not accessible on port :'+sirubayaportlist[no]+'\n'
-                flag2=False
-        output_frame=ctk.CTkFrame(new_window)
+                value_string2 = value_string2 + i + ' is not accessible on port :' + sirubayaportlist[no] + '\n'
+                flag2 = False
+                log_output(f"IP {i} is not accessible on port {sirubayaportlist[no]} (sirubaya)")
+
+        output_frame = ctk.CTkFrame(new_window)
         output_frame.pack(padx=50, pady=50)
-        
+
         output_frame.grab_set()
-        labeled1 = ctk.CTkTextbox(output_frame,width=400,font=('Arial', 15))
+        labeled1 = ctk.CTkTextbox(output_frame, width=400, font=('Arial', 15))
         labeled1.configure(state='normal')
         labeled1.insert(tk.END, value_string1)
-        labeled2 = ctk.CTkTextbox(output_frame,width=400,font=('Arial', 15))
+        labeled2 = ctk.CTkTextbox(output_frame, width=400, font=('Arial', 15))
         labeled2.configure(state='normal')
         labeled2.insert(tk.END, value_string2)
         labeled1.configure(state='disabled')
@@ -128,9 +132,9 @@ def outputshow():
             labeled2.configure(fg_color='red')
         labeled2.grid(row=0, column=1, padx=30, pady=30)
         labeled1.grid(row=0, column=0, padx=30, pady=30)
-        
 
-        new_window.after(10000, outputiterate)       
+        new_window.after(10000, outputiterate)
+    
 
     outputiterate()
     
@@ -249,6 +253,9 @@ m=ctk.CTk()
 
 m.title('NMS')
 m.geometry("1000x500")
+with open("log.txt", "w") as log_file:
+    pass
+
 
 # set_image_background(m, 'welcome.jpg')
 
