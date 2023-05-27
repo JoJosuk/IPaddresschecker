@@ -62,6 +62,9 @@ def add_input(event=None):
     port=entry3.get()
     if port=='':
         port='80'
+        
+    log_output(f"Adding IP {input} with port {port}")
+
     if input != '':
         if placestr.get()=="Jakarta":
             sirubayaiplist.append(input)
@@ -185,6 +188,7 @@ def place():
 
 def button1_clicked():
     # Remove all widgets from the main window
+    log_output("Monitor button clicked")
     for widget in m.winfo_children():
         widget.destroy()
     tb_frame=ctk.CTkFrame(m)
@@ -260,6 +264,8 @@ m.geometry("1000x500")
 with open("log.txt", "w") as log_file:
     pass
 
+log_output("Program started")
+
 
 
 # spacermain=ctk.CTkLabel(m, text="", padx=100, pady=100)
@@ -292,3 +298,5 @@ button3 = ctk.CTkButton(buttonframe, text="About", command=button3_clicked)
 button3.grid(row=1, column=2, padx=10, pady=10)
 
 m.mainloop()
+log_output("Program ended")
+

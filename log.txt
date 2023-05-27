@@ -1,8 +1,7 @@
-[2023-05-25 21:47:35] IP 123.45.45.4 is not accessible on port 80 (Jakarta)
-[2023-05-25 21:47:35] IP 23.44.556.44 is not accessible on port 80 (Jakarta)
-[2023-05-25 21:47:38] IP 3242 is not accessible on port 80 (Sirubaya)
-[2023-05-25 21:47:40] IP 323 is not accessible on port 80 (Sirubaya)
-[2023-05-25 21:47:46] IP 123.45.45.4 is not accessible on port 80 (Jakarta)
-[2023-05-25 21:47:46] IP 23.44.556.44 is not accessible on port 80 (Jakarta)
-[2023-05-25 21:47:49] IP 3242 is not accessible on port 80 (Sirubaya)
-[2023-05-25 21:47:52] IP 323 is not accessible on port 80 (Sirubaya)
+[2023-05-28 01:01:56] Program started
+[2023-05-28 01:01:59] Monitor button clicked
+[2023-05-28 01:02:02] Adding IP asd with port 
+[2023-05-28 01:02:11] Adding IP 123.45.33.555 with port 
+[2023-05-28 01:02:21] IP asd is not accessible on port 80 (Jakarta)
+[2023-05-28 01:02:21] IP 123.45.33.555 is not accessible on port 80 (Jakarta)
+[2023-05-28 01:02:28] Program ended
