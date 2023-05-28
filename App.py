@@ -33,6 +33,8 @@ def entry_changed(*args):
     input1 = entry1.get()
     if input1 == '':
         entry1.configure(fg_color="grey")
+    if '.' not in input1 or input1.count('.') != 3:
+        entry1.configure(fg_color='red')
     else:
         try:
             socket.inet_aton(input1)
@@ -57,28 +59,42 @@ def check_ip_accessibility(ip_address,port):
     except socket.error as e:
         return False
 
+def ipvalidity(ip_address):
+    if '.' not in ip_address:
+        return False
+    if ip_address.count('.') != 3:
+        return False
+    try:
+        socket.inet_aton(ip_address)
+        return True
+    except socket.error:
+        return False
+
 def add_input(event=None):
     input = entry1.get()
     port=entry3.get()
-    if port=='':
-        port='80'
-        
-    log_output(f"Adding IP {input} with port {port}")
-
-    if input != '':
-        if placestr.get()=="Jakarta":
-            sirubayaiplist.append(input)
-            textbox2.insert(tk.END, input+' Port:'+port+'\n')        
-            sirubayaportlist.append(port)
+    if ipvalidity(input) == False:
+        messagebox.showerror('Error', 'Invalid IP Address')
+    else:
+        if port=='':
+            port='80'
             
-        elif placestr.get()=="Sirubaya":
-            jakartaiplist.append(input)
-            textbox1.insert(tk.END, input+' Port:'+port+'\n')        
-            jakartaportlist.append(port)
-        
-        
-    entry1.delete(0, 'end')
-    entry3.delete(0, 'end')
+        log_output(f"Adding IP {input} with port {port}")
+
+        if input != '':
+            if placestr.get()=="Jakarta":
+                sirubayaiplist.append(input)
+                textbox2.insert(tk.END, input+' Port:'+port+'\n')        
+                sirubayaportlist.append(port)
+                
+            elif placestr.get()=="Sirubaya":
+                jakartaiplist.append(input)
+                textbox1.insert(tk.END, input+' Port:'+port+'\n')        
+                jakartaportlist.append(port)
+            
+            
+        entry1.delete(0, 'end')
+        entry3.delete(0, 'end')
 
 def outputshow():
     global new_window
