@@ -1,4 +1,3 @@
-[2023-05-28 10:22:16] Program started
-[2023-05-28 10:22:18] Monitor button clicked
-[2023-05-28 10:22:22] Monitor button clicked
-[2023-05-28 10:22:25] Program ended
+[2023-05-28 12:36:39] Program started
+[2023-05-28 12:36:41] Monitor button clicked
+[2023-05-28 12:36:45] Program ended

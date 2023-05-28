@@ -18,22 +18,17 @@ def log_output(output):
 
 
 def set_image_background(window, image_path):
-    # Load the image and create a PhotoImage object
     bg_image =ctk.CTkImage(Image.open(image_path),size=(1200,1080))
-
-    # Create a Label widget with the image as its background
     background_label = ctk.CTkLabel(window, image=bg_image,text='')
-    background_label.place(x=0, y=0, relwidth=1, relheight=1)
-    
-
-    # Set the label as the lowest layer in the window
+    background_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     background_label.lower()
     
 def entry_changed(*args):
     input1 = entry1.get()
     if input1 == '':
         entry1.configure(fg_color="grey")
-    if '.' not in input1 or input1.count('.') != 3:
+        
+    elif '.' not in input1 or input1.count('.') != 3:
         entry1.configure(fg_color='red')
     else:
         try:
@@ -184,11 +179,11 @@ def go_back():
             widget.destroy()
         set_image_background(m,'nms.webp')
         spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),fg_color='transparent',corner_radius=1)
-        spacer.pack(padx=10, pady=90)
+        spacer.place(relx=0.5, rely=0.4, anchor='center')
 
 
         buttonframe= ctk.CTkFrame(m)
-        buttonframe.pack(padx=10, pady=10)
+        buttonframe.place(relx=0.5, rely=0.6, anchor='center')
 
         button1 = ctk.CTkButton(buttonframe, text="Monitor", command=button1_clicked)
         button1.grid(row=1, column=0, padx=10, pady=10)
@@ -202,11 +197,11 @@ def go_back():
 def place():
     if placestr.get()=='Jakarta':
         placestr.set('Sirubaya')
-        textbox1.configure(fg_color='green')
+        textbox1.configure(fg_color='blue')
         textbox2.configure(fg_color='gray')
     else:
         placestr.set('Jakarta')
-        textbox2.configure(fg_color='green')
+        textbox2.configure(fg_color='blue')
         textbox1.configure(fg_color='gray')
 
 
@@ -215,8 +210,13 @@ def button1_clicked():
     log_output("Monitor button clicked")
     for widget in m.winfo_children():
         widget.destroy()
+    anotherframe=ctk.CTkFrame(m)
+    anotherframe.pack(padx=5, pady=5)
+    heading=ctk.CTkLabel(anotherframe, text="IP and Port Details", font=('Arial', 20))
+    heading.pack( padx=10, pady=10)
     tb_frame=ctk.CTkFrame(m)
-    tb_frame.pack()
+    tb_frame.pack(padx=10, pady=10)
+    
     set_image_background(m, "nms.webp")
     value1,value2='IP & Port in Jakarta :\n\n\n','IP & Port in Sirubaya :\n\n\n'
     for no,i in enumerate(jakartaiplist):
@@ -224,16 +224,13 @@ def button1_clicked():
     for no,i in enumerate(sirubayaiplist):
         value2=value2+i+' Port :'+sirubayaportlist[no]+'\n'
     global textbox1
-    textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15),fg_color='green')
+    textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15),fg_color='blue')
     textbox1.grid(row=0, column=0, padx=10, pady=10)
     textbox1.insert(tk.END, value1)
     global textbox2
     textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
     textbox2.grid(row=0, column=1, padx=10, pady=10)
     textbox2.insert(tk.END, value2 )
-    
-  
-    
     frame_place1=ctk.CTkFrame(m)
     frame_place1.pack(padx=50, pady=50)
     label1 = ctk.CTkLabel(frame_place1, text="Ip address : ")
@@ -251,13 +248,8 @@ def button1_clicked():
     entry3 = ctk.CTkEntry(frame_place1,width=300)
     entry3.grid(row=0, column=3, padx=10, pady=10)
     entry3.bind('<Return>', add_input)
-
-
     entry1.bind('<Return>', add_input)
 
-
-    
-    
     frame_buttons=ctk.CTkFrame(m)
     frame_buttons.pack(padx=20, pady=20)
     # Create an "Output" button
@@ -291,7 +283,7 @@ ctk.set_default_color_theme("green")
 m=ctk.CTk()
 
 m.title('NMS')
-m.geometry("1000x500")
+m.geometry("1000x600")
 with open("log.txt", "w") as log_file:
     pass
 with open('ipaddresses.txt','r') as ipfile:
@@ -332,12 +324,12 @@ height=m.winfo_height()
 print(width,height)
 bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,305))
 set_image_background(m,'nms.webp')
-spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),fg_color='transparent',corner_radius=1)
-spacer.pack(padx=10, pady=90)
+spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),fg_color='transparent',bg_color='transparent',corner_radius=1)
+spacer.place(relx=0.5, rely=0.4, anchor=tk.CENTER)
 
 
 buttonframe= ctk.CTkFrame(m)
-buttonframe.pack(padx=10, pady=10)
+buttonframe.place(relx=0.5, rely=0.6, anchor=tk.CENTER)
 
 button1 = ctk.CTkButton(buttonframe, text="Monitor", command=button1_clicked)
 button1.grid(row=1, column=0, padx=10, pady=10)
