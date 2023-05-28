@@ -182,23 +182,13 @@ def clearlist():
 def go_back():
         for widget in m.winfo_children():
             widget.destroy()
-        bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,250))
-
-        spacer=ctk.CTkLabel(m, text="Network Monitoring System", padx=10, pady=10, font=('Arial', 50), image=bg_image)
-        spacer.pack(fill='both', expand=True, anchor='center')
-
-
-        # spacer.grid(sticky="nsew")
+        set_image_background(m,'nms.webp')
+        spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),fg_color='transparent',corner_radius=1)
+        spacer.pack(padx=10, pady=90)
 
 
-        buttonframe2= ctk.CTkFrame(m)
-        buttonframe2.pack(fill='both', expand=True, anchor='center')
-
-        buttonframe= ctk.CTkFrame(buttonframe2)
-        buttonframe.pack(padx=10, pady=20)
-
-
-        
+        buttonframe= ctk.CTkFrame(m)
+        buttonframe.pack(padx=10, pady=10)
 
         button1 = ctk.CTkButton(buttonframe, text="Monitor", command=button1_clicked)
         button1.grid(row=1, column=0, padx=10, pady=10)
@@ -212,8 +202,12 @@ def go_back():
 def place():
     if placestr.get()=='Jakarta':
         placestr.set('Sirubaya')
+        textbox1.configure(fg_color='green')
+        textbox2.configure(fg_color='gray')
     else:
         placestr.set('Jakarta')
+        textbox2.configure(fg_color='green')
+        textbox1.configure(fg_color='gray')
 
 
 def button1_clicked():
@@ -230,7 +224,7 @@ def button1_clicked():
     for no,i in enumerate(sirubayaiplist):
         value2=value2+i+' Port :'+sirubayaportlist[no]+'\n'
     global textbox1
-    textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))
+    textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15),fg_color='green')
     textbox1.grid(row=0, column=0, padx=10, pady=10)
     textbox1.insert(tk.END, value1)
     global textbox2
@@ -336,20 +330,14 @@ log_output("Program started")
 width=m.winfo_width()
 height=m.winfo_height()
 print(width,height)
-bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,375))
-
-spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),image=bg_image)
-spacer.pack(fill='both', expand=True, anchor='center')
-
-
-# spacer.grid(sticky="nsew")
+bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,305))
+set_image_background(m,'nms.webp')
+spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),fg_color='transparent',corner_radius=1)
+spacer.pack(padx=10, pady=90)
 
 
-buttonframe2= ctk.CTkFrame(m)
-buttonframe2.pack(fill='both', expand=True, anchor='center')
-
-buttonframe= ctk.CTkFrame(buttonframe2)
-buttonframe.pack(padx=10, pady=20)
+buttonframe= ctk.CTkFrame(m)
+buttonframe.pack(padx=10, pady=10)
 
 button1 = ctk.CTkButton(buttonframe, text="Monitor", command=button1_clicked)
 button1.grid(row=1, column=0, padx=10, pady=10)

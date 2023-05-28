@@ -1,23 +1,4 @@
-[2023-05-28 09:19:43] Program started
-[2023-05-28 09:19:45] Monitor button clicked
-[2023-05-28 09:19:49] IP 142.250.183.238 is accessible on port 80 (Jakarta)
-[2023-05-28 09:19:49] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-28 09:19:49] IP 54.239.28.85 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:19:49] IP 52.95.120.67 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:19:59] IP 142.250.183.238 is accessible on port 80 (Jakarta)
-[2023-05-28 09:19:59] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-28 09:19:59] IP 54.239.28.85 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:19:59] IP 52.95.120.67 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:09] IP 142.250.183.238 is accessible on port 80 (Jakarta)
-[2023-05-28 09:20:09] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-28 09:20:09] IP 54.239.28.85 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:10] IP 52.95.120.67 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:15] IP 142.250.183.238 is accessible on port 80 (Jakarta)
-[2023-05-28 09:20:15] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-28 09:20:15] IP 54.239.28.85 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:15] IP 52.95.120.67 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:25] IP 142.250.183.238 is accessible on port 80 (Jakarta)
-[2023-05-28 09:20:25] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-28 09:20:26] IP 54.239.28.85 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:26] IP 52.95.120.67 is not accessible on port 80 (Sirubaya)
-[2023-05-28 09:20:38] Program ended
+[2023-05-28 10:22:16] Program started
+[2023-05-28 10:22:18] Monitor button clicked
+[2023-05-28 10:22:22] Monitor button clicked
+[2023-05-28 10:22:25] Program ended
