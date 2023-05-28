@@ -9,7 +9,6 @@ jakartaiplist=[]
 jakartaportlist=[]
 sirubayaiplist=[]
 sirubayaportlist=[]
-
 def log_output(output):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"[{timestamp}] {output}\n"
@@ -70,12 +69,15 @@ def add_input(event=None):
     port=entry3.get()
     if ipvalidity(input) == False:
         messagebox.showerror('Error', 'Invalid IP Address')
+        entry1.delete(0, 'end')
+        entry3.delete(0, 'end')
     else:
         if port=='':
             port='80'
             
         log_output(f"Adding IP {input} with port {port}")
-
+        textbox1.configure(state='normal')
+        textbox2.configure(state='normal')
         if input != '':
             if placestr.get()=="Jakarta":
                 sirubayaiplist.append(input)
@@ -87,7 +89,8 @@ def add_input(event=None):
                 textbox1.insert(tk.END, input+' Port:'+port+'\n')        
                 jakartaportlist.append(port)
             
-            
+        textbox1.configure(state='disabled')
+        textbox2.configure(state='disabled')   
         entry1.delete(0, 'end')
         entry3.delete(0, 'end')
 
@@ -100,32 +103,37 @@ def outputshow():
     set_image_background(new_window, "nms.webp")
     
     def outputiterate():
+            
         for widget in new_window.winfo_children():
             if str(widget)=='.!ctktoplevel.!ctklabel':
                 continue
             widget.destroy()
-        flag1 = True
-        flag2 = True
+        set_image_background(new_window, "nms.webp")
         value_string1 = 'Jakarta :\n\n\n'
         value_string2 = 'Sirubaya :\n\n\n'
         value_string1n = 'Jakarta Not Accessible:\n\n\n'
         value_string2n = 'Sirubaya Not Accessible:\n\n\n'
+        
+        flag1,flag2,flag1n,flag2n=False,False,False,False
+        
         for no, i in enumerate(jakartaiplist):
 
             if check_ip_accessibility(i, jakartaportlist[no]):
+                flag1 = True
                 value_string1 = value_string1 + i + ' is accessible on port :' + jakartaportlist[no] + '\n'
                 log_output(f"IP {i} is accessible on port {jakartaportlist[no]} (Jakarta)")
             else:
                 value_string1n = value_string1n + i + ' is not accessible on port :' + jakartaportlist[no] + '\n'
-                flag1 = False
+                flag1n = True
                 log_output(f"IP {i} is not accessible on port {jakartaportlist[no]} (Jakarta)")
         for no, i in enumerate(sirubayaiplist):
             if check_ip_accessibility(i, sirubayaportlist[no]):
+                flag2 = True
                 value_string2 = value_string2 + i + ' is accessible on port :' + sirubayaportlist[no] + '\n'
                 log_output(f"IP {i} is accessible on port {sirubayaportlist[no]} (Sirubaya)")
             else:
                 value_string2n = value_string2n + i + ' is not accessible on port :' + sirubayaportlist[no] + '\n'
-                flag2 = False
+                flag2n = True
                 log_output(f"IP {i} is not accessible on port {sirubayaportlist[no]} (Sirubaya)")
 
         output_frame = ctk.CTkFrame(new_window)
@@ -146,24 +154,38 @@ def outputshow():
         labeled2n.insert(tk.END, value_string2n)
         labeled1.configure(state='disabled')
         labeled2.configure(state='disabled')
-        
+        labeled1n.configure(state='disabled')
+        labeled2n.configure(state='disabled')
         labeled1.configure(fg_color='green')
         labeled2.configure(fg_color='green')
-        labeled2.grid(row=0, column=1, padx=30, pady=30)
+    
+        
+        
         labeled1.grid(row=0, column=0, padx=30, pady=30)
         if not flag1:
+            labeled1.configure(fg_color='gray')
+        if not flag2:
+            labeled2.configure(fg_color='gray')
+        labeled2.grid(row=0, column=1, padx=30, pady=30)
+
+        if flag1n:
             labeled1n.grid(row=1, column=0, padx=30, pady=30)
             labeled1n.configure(fg_color='red')
-            
         
-        if not flag2:
+        
+        if flag2n:
             labeled2n.grid(row=1, column=1, padx=30, pady=30)
             labeled2n.configure(fg_color='red')
+            
+        if jakartaiplist==[] and sirubayaiplist==[]:
+            new_window.destroy()
+            messagebox.showerror('Error', 'No IP Address added')
+        else:
+            new_window.after(10000, outputiterate)
+        # except:
+        #     new_window.destroy()
+        #     messagebox.showerror('Error', 'No IP Address added')
         
-        
-        
-
-        new_window.after(10000, outputiterate)
     
 
     outputiterate()
@@ -171,7 +193,12 @@ def outputshow():
 def clearlist():
     jakartaiplist.clear()
     sirubayaiplist.clear()
+    textbox1.configure(state='normal')
+    textbox2.configure(state='normal')
     textbox1.delete('3.0', tk.END)
+    textbox2.delete('3.0', tk.END)
+    textbox1.configure(state='disabled')
+    textbox2.configure(state='disabled')
 
 
 def go_back():
@@ -227,10 +254,12 @@ def button1_clicked():
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15),fg_color='blue')
     textbox1.grid(row=0, column=0, padx=10, pady=10)
     textbox1.insert(tk.END, value1)
+    textbox1.configure(state='disabled')
     global textbox2
     textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
     textbox2.grid(row=0, column=1, padx=10, pady=10)
     textbox2.insert(tk.END, value2 )
+    textbox2.configure(state='disabled')
     frame_place1=ctk.CTkFrame(m)
     frame_place1.pack(padx=50, pady=50)
     label1 = ctk.CTkLabel(frame_place1, text="Ip address : ")

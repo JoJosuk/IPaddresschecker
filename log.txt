@@ -1,3 +1,9 @@
-[2023-05-28 12:36:39] Program started
-[2023-05-28 12:36:41] Monitor button clicked
-[2023-05-28 12:36:45] Program ended
+[2023-05-28 16:12:09] Program started
+[2023-05-28 16:12:10] Monitor button clicked
+[2023-05-28 16:12:23] Adding IP 123.33.44.33 with port 80
+[2023-05-28 16:12:25] IP 123.33.44.33 is not accessible on port 80 (Jakarta)
+[2023-05-28 16:12:35] IP 123.33.44.33 is not accessible on port 80 (Jakarta)
+[2023-05-28 16:12:45] IP 123.33.44.33 is not accessible on port 80 (Jakarta)
+[2023-05-28 16:12:55] IP 123.33.44.33 is not accessible on port 80 (Jakarta)
+[2023-05-28 16:13:04] IP 123.33.44.33 is not accessible on port 80 (Jakarta)
+[2023-05-28 16:13:15] Program ended
