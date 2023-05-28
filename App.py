@@ -84,7 +84,7 @@ def outputshow():
     global new_window
     
     new_window = ctk.CTkToplevel()
-    new_window.geometry("1000x500")
+    new_window.geometry("1000x700")
     new_window.title('IP values')
     set_image_background(new_window, "nms.webp")
     
@@ -97,13 +97,15 @@ def outputshow():
         flag2 = True
         value_string1 = 'Jakarta :\n\n\n'
         value_string2 = 'Sirubaya :\n\n\n'
+        value_string1n = 'Jakarta Not Accessible:\n\n\n'
+        value_string2n = 'Sirubaya Not Accessible:\n\n\n'
         for no, i in enumerate(jakartaiplist):
 
             if check_ip_accessibility(i, jakartaportlist[no]):
                 value_string1 = value_string1 + i + ' is accessible on port :' + jakartaportlist[no] + '\n'
                 log_output(f"IP {i} is accessible on port {jakartaportlist[no]} (Jakarta)")
             else:
-                value_string1 = value_string1 + i + ' is not accessible on port :' + jakartaportlist[no] + '\n'
+                value_string1n = value_string1n + i + ' is not accessible on port :' + jakartaportlist[no] + '\n'
                 flag1 = False
                 log_output(f"IP {i} is not accessible on port {jakartaportlist[no]} (Jakarta)")
         for no, i in enumerate(sirubayaiplist):
@@ -111,7 +113,7 @@ def outputshow():
                 value_string2 = value_string2 + i + ' is accessible on port :' + sirubayaportlist[no] + '\n'
                 log_output(f"IP {i} is accessible on port {sirubayaportlist[no]} (Sirubaya)")
             else:
-                value_string2 = value_string2 + i + ' is not accessible on port :' + sirubayaportlist[no] + '\n'
+                value_string2n = value_string2n + i + ' is not accessible on port :' + sirubayaportlist[no] + '\n'
                 flag2 = False
                 log_output(f"IP {i} is not accessible on port {sirubayaportlist[no]} (Sirubaya)")
 
@@ -122,21 +124,33 @@ def outputshow():
         labeled1 = ctk.CTkTextbox(output_frame, width=400, font=('Arial', 15))
         labeled1.configure(state='normal')
         labeled1.insert(tk.END, value_string1)
+        labeled1n = ctk.CTkTextbox(output_frame, width=400, font=('Arial', 15))
+        labeled1n.configure(state='normal')
+        labeled1n.insert(tk.END, value_string1n)
         labeled2 = ctk.CTkTextbox(output_frame, width=400, font=('Arial', 15))
         labeled2.configure(state='normal')
         labeled2.insert(tk.END, value_string2)
+        labeled2n = ctk.CTkTextbox(output_frame, width=400, font=('Arial', 15))
+        labeled2n.configure(state='normal')
+        labeled2n.insert(tk.END, value_string2n)
         labeled1.configure(state='disabled')
         labeled2.configure(state='disabled')
-        if flag1:
-            labeled1.configure(fg_color='green')
-        else:
-            labeled1.configure(fg_color='red')
-        if flag2:
-            labeled2.configure(fg_color='green')
-        else:
-            labeled2.configure(fg_color='red')
+        
+        labeled1.configure(fg_color='green')
+        labeled2.configure(fg_color='green')
         labeled2.grid(row=0, column=1, padx=30, pady=30)
         labeled1.grid(row=0, column=0, padx=30, pady=30)
+        if not flag1:
+            labeled1n.grid(row=1, column=0, padx=30, pady=30)
+            labeled1n.configure(fg_color='red')
+            
+        
+        if not flag2:
+            labeled2n.grid(row=1, column=1, padx=30, pady=30)
+            labeled2n.configure(fg_color='red')
+        
+        
+        
 
         new_window.after(10000, outputiterate)
     
@@ -202,6 +216,8 @@ def button1_clicked():
     textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
     textbox2.grid(row=0, column=1, padx=10, pady=10)
     textbox2.insert(tk.END, 'IP & Port in Sirubaya :\n\n\n')
+    
+  
     
     frame_place1=ctk.CTkFrame(m)
     frame_place1.pack(padx=50, pady=50)
