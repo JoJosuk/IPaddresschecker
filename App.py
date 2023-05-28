@@ -224,14 +224,19 @@ def button1_clicked():
     tb_frame=ctk.CTkFrame(m)
     tb_frame.pack()
     set_image_background(m, "nms.webp")
+    value1,value2='IP & Port in Jakarta :\n\n\n','IP & Port in Sirubaya :\n\n\n'
+    for no,i in enumerate(jakartaiplist):
+        value1=value1+i+' Port :'+jakartaportlist[no]+'\n'
+    for no,i in enumerate(sirubayaiplist):
+        value2=value2+i+' Port :'+sirubayaportlist[no]+'\n'
     global textbox1
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))
     textbox1.grid(row=0, column=0, padx=10, pady=10)
-    textbox1.insert(tk.END, 'IP & Port in Jakarta :\n\n\n')
+    textbox1.insert(tk.END, value1)
     global textbox2
     textbox2=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15))  
     textbox2.grid(row=0, column=1, padx=10, pady=10)
-    textbox2.insert(tk.END, 'IP & Port in Sirubaya :\n\n\n')
+    textbox2.insert(tk.END, value2 )
     
   
     
@@ -295,7 +300,33 @@ m.title('NMS')
 m.geometry("1000x500")
 with open("log.txt", "w") as log_file:
     pass
-
+with open('ipaddresses.txt','r') as ipfile:
+    all=ipfile.readlines()
+    for i in all:
+        if i == 'Jakarta\n':
+            listapp=jakartaiplist
+            portlist=jakartaportlist
+            continue
+        elif i == 'Sirubaya\n':
+            listapp=sirubayaiplist
+            portlist=sirubayaportlist
+            continue
+        try:
+            ip,port=i.split(',')
+            port=int(port)
+            print(ip,port)
+            listapp.append(ip)
+            portlist.append(str(port))
+        except:
+            jakartaiplist=[]
+            jakartaportlist=[]
+            sirubayaiplist=[]
+            sirubayaportlist=[]
+            break
+    
+    
+            
+            
 log_output("Program started")
 
 
