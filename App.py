@@ -329,7 +329,6 @@ with open('ipaddresses.txt','r') as ipfile:
         try:
             ip,port=i.split(',')
             port=int(port)
-            print(ip,port)
             listapp.append(ip)
             portlist.append(str(port))
         except:
