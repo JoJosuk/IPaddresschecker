@@ -1,2 +1,2 @@
-[2023-05-30 13:07:06] Program started
-[2023-05-30 13:07:21] Program ended
+[2023-05-30 13:14:55] Program started
+[2023-05-30 13:14:57] Monitor button clicked

@@ -68,7 +68,19 @@ def add_input(event=None):
     input = entry1.get()
     port=entry3.get()
     if ipvalidity(input) == False:
-        messagebox.showerror('Error', 'Invalid IP Address')
+        error_window = ctk.CTkToplevel()
+        error_window.geometry("300x150")
+        error_window.title("Error")
+        
+        message='Invalid IP Address'
+        label = ctk.CTkLabel(error_window, text=message)
+        label.pack(padx=20, pady=20)
+        
+        close_button = ctk.CTkButton(error_window, text="Close", command=error_window.destroy)
+        close_button.pack(pady=10)
+        
+        error_window.grab_set()
+        error_window.mainloop()
         entry1.delete(0, 'end')
         entry3.delete(0, 'end')
     else:
