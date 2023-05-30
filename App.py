@@ -99,7 +99,7 @@ def outputshow():
     
     new_window = ctk.CTkToplevel()
     new_window.geometry("1000x700")
-    new_window.title('IP values')
+    new_window.title('NMS')
     set_image_background(new_window, "nms.webp")
     
     def outputiterate():
