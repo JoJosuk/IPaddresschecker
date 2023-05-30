@@ -191,7 +191,17 @@ def outputshow():
             
         if jakartaiplist==[] and sirubayaiplist==[]:
             new_window.destroy()
-            messagebox.showerror('Error', 'No IP Address added')
+            error_window = ctk.CTkToplevel()
+            error_window.geometry("300x150")
+            error_window.title("Error")
+            message="No IP Address added"
+            label = ctk.CTkLabel(error_window, text=message)
+            label.pack(padx=20, pady=20)
+            
+            close_button = ctk.CTkButton(error_window, text="Close", command=error_window.destroy)
+            close_button.pack(pady=10)
+            error_window.grab_set()
+            error_window.mainloop()
         else:
             new_window.after(10000, outputiterate)
         # except:
