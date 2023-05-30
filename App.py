@@ -304,8 +304,18 @@ def button1_clicked():
 
 
 def button3_clicked():
-    messagebox.showinfo("About", "The project Network Monitoring System is all about the monitoring the network accessibility in Indonesia mainly in Jakarta and Sirubaya. This python code check the validity and accessibility of an ip address along with its port number and reminds the user if any issues pops up. ")
-    m.messagebox("100x100")
+    new_window = ctk.CTkToplevel()
+    new_window.geometry("400x150")
+    new_window.title("About")
+    wrap=300
+    label = ctk.CTkLabel(new_window, text="The project Network Monitoring System is all about the monitoring the network accessibility in Indonesia mainly in Jakarta and Sirubaya. This python code checks the validity and accessibility of an IP address along with its port number and reminds the user if any issues pop up.",wraplength=wrap)
+    label.pack(padx=10, pady=10)
+
+    close_button = ctk.CTkButton(new_window, text="Close", command=new_window.destroy)
+    close_button.pack(pady=5)
+    new_window.grab_set()
+    new_window.mainloop()
+
 
 ctk.set_appearance_mode("system")
 ctk.set_default_color_theme("green")   
