@@ -4,11 +4,12 @@ import customtkinter as ctk
 import socket
 import datetime
 from PIL import Image, ImageTk
-
 jakartaiplist=[]
 jakartaportlist=[]
 sirubayaiplist=[]
 sirubayaportlist=[]
+listapp=[]
+portlist=[]
 def log_output(output):
     timestamp = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     log_entry = f"[{timestamp}] {output}\n"
@@ -21,6 +22,18 @@ def set_image_background(window, image_path):
     background_label = ctk.CTkLabel(window, image=bg_image,text='')
     background_label.place(relx=0.5, rely=0.5, anchor=tk.CENTER)
     background_label.lower()
+def entry_changed2(*args):
+    input1=entrychange.get()
+    if input1=='':
+        entrychange.configure(fg_color="grey")
+    elif '.' not in input1 or input1.count('.') != 3:
+        entrychange.configure(fg_color='red')
+    else:
+        try:
+            socket.inet_aton(input1)
+            entrychange.configure(fg_color='green')
+        except socket.error:
+            entrychange.configure(fg_color='red')
     
 def entry_changed(*args):
     input1 = entry1.get()
@@ -252,9 +265,13 @@ def place():
         placestr.set('Jakarta')
         textbox2.configure(fg_color='blue')
         textbox1.configure(fg_color='gray')
-
-
+def checkbutton_clicked():
+    ip=entrychange.get()
+    global listapp,portlist
+    listapp.append(ip)
+    portlist.append(0)
 def button1_clicked():
+    
     # Remove all widgets from the main window
     log_output("Monitor button clicked")
     for widget in m.winfo_children():
@@ -265,12 +282,72 @@ def button1_clicked():
     heading.pack( padx=10, pady=10)
     tb_frame=ctk.CTkFrame(m)
     tb_frame.pack(padx=10, pady=10)
+
     
     set_image_background(m, "nms.webp")
+    global jakartaiplist,jakartaportlist,sirubayaiplist,sirubayaportlist
+
+    with open('ipaddresses.txt','r') as ipfile:
+        subwindowstr=ctk.StringVar()
+        all=ipfile.readlines()
+        for i in all:
+            if i == 'Jakarta\n':
+                listapp=jakartaiplist
+                portlist=jakartaportlist
+                continue
+            elif i == 'Sirubaya\n':
+
+                listapp=sirubayaiplist
+                portlist=sirubayaportlist
+
+
+                continue
+            try:
+                ip,port=i.split(',')
+                port=int(port)
+                if ipvalidity(ip):
+                    listapp.append(ip)
+                    portlist.append(str(port))
+
+                else:
+                    def update_list(Event=None):
+                        if ipvalidity(subwindowstr.get()):
+                            listapp.append(subwindowstr.get())
+                            portlist.append(str(port))
+                            new_check_window.destroy()
+                        else:
+                            messagebox.showerror('Error', 'Invalid IP Address')
+                    new_check_window = ctk.CTkToplevel()
+                    new_check_window.geometry("300x150")
+                    stringval='Enter the proper valid ip address instead of'+ip
+                    label = ctk.CTkLabel(new_check_window, text=stringval,wraplength=250)
+                    label.pack(padx=20, pady=20)
+                    subwindowstr.set('')
+                    global entrychange
+                    entrychange=ctk.CTkEntry(new_check_window,textvariable=subwindowstr)
+                    subwindowstr.trace('w',entry_changed2)
+                    checkwindowbutton=ctk.CTkButton(new_check_window,text='Enter',command=update_list)
+                    entrychange.pack()
+                    checkwindowbutton.pack()
+                    entrychange.bind('<Return>',update_list)
+                    new_check_window.grab_set()
+                    
+                    new_check_window.wait_window(new_check_window)
+                    
+                    
+
+            except:
+                jakartaiplist=[]
+                jakartaportlist=[]
+                sirubayaiplist=[]
+                sirubayaportlist=[]
+                break
     value1,value2='IP & Port in Jakarta :\n\n\n','IP & Port in Sirubaya :\n\n\n'
     for no,i in enumerate(jakartaiplist):
+        print(i,jakartaportlist[no])
         value1=value1+i+' Port :'+jakartaportlist[no]+'\n'
     for no,i in enumerate(sirubayaiplist):
+        print(i,sirubayaportlist[no])
         value2=value2+i+' Port :'+sirubayaportlist[no]+'\n'
     global textbox1
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15),fg_color='blue')
@@ -347,28 +424,7 @@ m.title('NMS')
 m.geometry("1000x600")
 with open("log.txt", "w") as log_file:
     pass
-with open('ipaddresses.txt','r') as ipfile:
-    all=ipfile.readlines()
-    for i in all:
-        if i == 'Jakarta\n':
-            listapp=jakartaiplist
-            portlist=jakartaportlist
-            continue
-        elif i == 'Sirubaya\n':
-            listapp=sirubayaiplist
-            portlist=sirubayaportlist
-            continue
-        try:
-            ip,port=i.split(',')
-            port=int(port)
-            listapp.append(ip)
-            portlist.append(str(port))
-        except:
-            jakartaiplist=[]
-            jakartaportlist=[]
-            sirubayaiplist=[]
-            sirubayaportlist=[]
-            break
+
     
     
             
