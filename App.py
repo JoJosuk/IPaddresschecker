@@ -26,6 +26,7 @@ def entry_changed2(*args):
     input1=entrychange.get()
     if input1=='':
         entrychange.configure(fg_color="grey")
+        
     elif '.' not in input1 or input1.count('.') != 3:
         entrychange.configure(fg_color='red')
     else:
@@ -39,15 +40,19 @@ def entry_changed(*args):
     input1 = entry1.get()
     if input1 == '':
         entry1.configure(fg_color="grey")
+        entry3.configure(state = 'normal')
         
     elif '.' not in input1 or input1.count('.') != 3:
         entry1.configure(fg_color='red')
+        entry3.configure(state = 'disabled')
     else:
         try:
             socket.inet_aton(input1)
             entry1.configure(fg_color='green')
+            entry3.configure(state = 'normal')
         except socket.error:
             entry1.configure(fg_color='red')
+            entry3.configure(state = 'disabled')
 
 def check_ip_accessibility(ip_address,port):
     try:
@@ -453,8 +458,8 @@ button1.grid(row=1, column=0, padx=10, pady=10)
 button2 = ctk.CTkButton(buttonframe, text="Custom")
 button2.grid(row=1, column=1, padx=10, pady=10)
 
-button3 = ctk.CTkButton(buttonframe, text="About", command=button3_clicked)
-button3.grid(row=1, column=2, padx=10, pady=10)
+# button3 = ctk.CTkButton(buttonframe, text="About", command=button3_clicked)
+# button3.grid(row=1, column=2, padx=10, pady=10)
 
 m.mainloop()
 log_output("Program ended")
