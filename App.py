@@ -459,3 +459,10 @@ button3.grid(row=1, column=2, padx=10, pady=10)
 m.mainloop()
 log_output("Program ended")
 
+with open('ipaddresses.txt', 'w') as f:
+    f.write('Jakarta\n')
+    for no,item in enumerate(jakartaiplist): 
+        f.write(str(item)+','+jakartaportlist[no]+'\n')
+    f.write('Sirubaya\n')
+    for no,item in enumerate(sirubayaiplist):
+        f.write(str(item)+','+sirubayaportlist[no]+'\n')
