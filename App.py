@@ -349,10 +349,8 @@ def button1_clicked():
                 break
     value1,value2='IP & Port in Jakarta :\n\n\n','IP & Port in Sirubaya :\n\n\n'
     for no,i in enumerate(jakartaiplist):
-        print(i,jakartaportlist[no])
         value1=value1+i+' Port :'+jakartaportlist[no]+'\n'
     for no,i in enumerate(sirubayaiplist):
-        print(i,sirubayaportlist[no])
         value2=value2+i+' Port :'+sirubayaportlist[no]+'\n'
     global textbox1
     textbox1=ctk.CTkTextbox(tb_frame,width=300,font=('Arial', 15),fg_color='blue')
@@ -442,7 +440,6 @@ log_output("Program started")
 # spacermain.pack()
 width=m.winfo_width()
 height=m.winfo_height()
-print(width,height)
 bg_image =ctk.CTkImage(Image.open('nms.webp'),size=(1000,305))
 set_image_background(m,'nms.webp')
 spacer=ctk.CTkLabel(m, text="Network Monitoring System", font=('Arial', 50),fg_color='transparent',bg_color='transparent',corner_radius=1)
