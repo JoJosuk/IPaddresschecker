@@ -467,5 +467,13 @@ with open('ipaddresses.txt', 'w') as f:
     for no,item in enumerate(sirubayaiplist):
         f.write(str(item)+','+sirubayaportlist[no]+'\n')
         
-
+with open('config.txt', 'w') as f:
+    f.write('Jakarta\n')
+    for no,item in enumerate(jakartaiplist): 
+        f.write('Modified IP: '+str(item)+'\n')
+        f.write('Modified Port: '+jakartaportlist[no]+'\n\n')
+    f.write('\n\nSirubaya\n')
+    for no,item in enumerate(sirubayaiplist):
+        f.write('Modified IP: '+str(item)+'\n')
+        f.write('Modified Port: '+sirubayaportlist[no]+'\n\n')
         
