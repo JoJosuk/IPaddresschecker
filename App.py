@@ -466,3 +466,6 @@ with open('ipaddresses.txt', 'w') as f:
     f.write('Sirubaya\n')
     for no,item in enumerate(sirubayaiplist):
         f.write(str(item)+','+sirubayaportlist[no]+'\n')
+        
+
+        

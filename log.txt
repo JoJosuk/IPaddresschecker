@@ -1,7 +1,3 @@
-[2023-05-31 07:05:11] Program started
-[2023-05-31 07:05:13] Monitor button clicked
-[2023-05-31 07:05:15] IP 143.250.183.238 is not accessible on port 80 (Jakarta)
-[2023-05-31 07:05:15] IP 103.243.32.90 is accessible on port 80 (Jakarta)
-[2023-05-31 07:05:15] IP 54.239.28.85 is not accessible on port 80 (Sirubaya)
-[2023-05-31 07:05:15] IP 52.95.120.67 is not accessible on port 80 (Sirubaya)
-[2023-05-31 07:05:28] Program ended
+[2023-05-31 07:12:53] Program started
+[2023-05-31 07:12:55] Monitor button clicked
+[2023-05-31 07:13:00] Program ended

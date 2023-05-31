@@ -1,0 +1,16 @@
+Jakarta
+Modified IP: 143.250.183.238
+Modified Port: 80
+
+Modified IP: 103.243.32.90
+Modified Port: 80
+
+
+
+Sirubaya
+Modified IP: 54.239.28.85
+Modified Port: 80
+
+Modified IP: 52.95.120.67
+Modified Port: 80
+
